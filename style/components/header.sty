@@ -1,0 +1,25 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/components/header}[2026/05/12 v1.0 CV header]
+
+\newcommand{\cvheader}[3]{%
+  \noindent
+  \begin{minipage}[c]{\dimexpr\linewidth-3.0cm\relax}
+    {\cvfontname\bfseries\color{cvink}#1\par}
+    \vspace{4pt}
+    {\small\color{cvink}#2\par}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[c]{2.6cm}
+    \raggedleft
+    \begin{tikzpicture}
+      \begin{scope}
+        \clip (0,0) circle (1.2cm);
+        \node[inner sep=0pt] at (0,0)
+          {\includegraphics[width=3cm]{#3}};
+      \end{scope}
+    \end{tikzpicture}%
+  \end{minipage}\par
+  \vspace{6pt}%
+}
+
+\endinput

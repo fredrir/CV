@@ -1,0 +1,19 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/components/selected}[2026/05/12 v1.0 CV selected experience]
+
+\newcommand{\cvselected}[3]{%
+  \needspace{8\baselineskip}%
+  \par\noindent
+  {\bfseries\color{cvink}#1}\cv@bar{\itshape #2}%
+  \hfill\cvdate{#3}\par
+  \nopagebreak%
+}
+
+\newcommand{\cvtech}[1]{%
+  \nopagebreak
+  \par\noindent\hspace*{1em}{\itshape\small\color{cvmuted}#1}\par
+  \nopagebreak
+  \vspace{1pt}%
+}
+
+\endinput

@@ -1,0 +1,15 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/components/subentry}[2026/05/12 v1.0 CV multi-role sub-entry]
+
+\newcommand{\cvsubentry}[4]{%
+  \par\noindent
+  \makebox[\cvsubbulletwd][l]{\hspace{1.0em}\textbullet}%
+  \makebox[\cvsubrolewd][l]{{\color{cvink}#1}}%
+  \makebox[\dimexpr\linewidth-\cvsubbulletwd-\cvsubrolewd-\cvsubstartwd-\cvsubdashwd-\cvsubendwd\relax][l]{#2}%
+  \makebox[\cvsubstartwd][l]{\cvdate{#3}}%
+  \makebox[\cvsubdashwd][c]{--}%
+  \makebox[\cvsubendwd][r]{\cvdate{#4}}\par
+  \vspace{1pt}%
+}
+
+\endinput

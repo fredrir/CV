@@ -2,6 +2,12 @@
 
 LaTeX-kilde til CV-en min, tilgjengelig på norsk og engelsk.
 
+## Forhåndsvisning
+
+| Side 1 | Side 2 |
+|:------:|:------:|
+| ![Side 1](images/preview-1.png) | ![Side 2](images/preview-2.png) |
+
 ## Bygge PDF
 
 CV-en bruker **lualatex**.
@@ -42,11 +48,22 @@ Norsk.tex     ┴─►  main.tex  ─►  style/  +  content/
 ├── README.md
 ├── style/
 │   ├── main.sty                         Paraplypakke — laster alt under
+│   ├── constants.sty                    Fontstørrelser og kolonnbredder
 │   ├── colors.sty                       Fargepalett
 │   ├── fonts.sty                        Typografi (Arial fra fonts/)
 │   ├── lang.sty                         \cvlang, \enor, \lblXxx
 │   ├── layout.sty                       Geometri, hyperref, lister
-│   └── components.sty                   Gjenbrukbare komponenter
+│   └── components/
+│       ├── index.sty                    Laster alle komponentene under
+│       ├── utils.sty                    Delte primitiver: \cv@bar, \cvdate
+│       ├── header.sty                   \cvheader
+│       ├── section.sty                  \cvsection
+│       ├── entry.sty                    \cventry, cvbullets
+│       ├── subentry.sty                 \cvsubentry (flere roller, f.eks. NTNU)
+│       ├── education.sty                \cveduentry
+│       ├── selected.sty                 \cvselected, \cvtech
+│       ├── other.sty                    \cvother
+│       └── skills.sty                   \cvskillline
 ├── content/
 │   ├── header.tex                       Navn, foto, kontaktlinje
 │   ├── skills.tex                       Tekniske ferdigheter
@@ -72,8 +89,11 @@ Norsk.tex     ┴─►  main.tex  ─►  style/  +  content/
 │       ├── finance-committee.tex
 │       └── excursion-committee.tex
 ├── fonts/                               Arial .TTF
-└── images/
-    └── fredrik_carsten_hansteen.png
+├── images/
+│   ├── fredrik_carsten_hansteen.png
+│   ├── preview-1.png
+│   └── preview-2.png
+└── build.sh                             Bygger PDFer med riktige filnavn
 ```
 
 ## Komponent-API

@@ -1,0 +1,12 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/components/education}[2026/05/12 v1.0 CV education entry]
+
+\newcommand{\cveduentry}[4]{%
+  \vspace{5pt}%
+  \par\noindent
+  {\cvfontentry\bfseries\color{cvink}#1}\hfill\cvdate{#4}\par
+  {\color{cvink}#2\cv@bar #3}\par
+  \vspace{6pt}%
+}
+
+\endinput
