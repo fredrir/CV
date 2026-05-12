@@ -6,25 +6,29 @@ LaTeX-kilde til CV-en min, tilgjengelig på norsk og engelsk.
 
 CV-en bruker **lualatex**.
 
-```bash
-latexmk -lualatex -interaction=nonstopmode CV_Fredrik_Carsten_Hansteen_En.tex
-latexmk -lualatex -interaction=nonstopmode CV_Fredrik_Carsten_Hansteen_Nb.tex
-```
-
-Uten `latexmk`:
+Via `build.sh` (gir korrekte PDF-navn):
 
 ```bash
-lualatex CV_Fredrik_Carsten_Hansteen_En.tex
-lualatex CV_Fredrik_Carsten_Hansteen_Nb.tex
+bash build.sh       # bygger begge
+bash build.sh en    # bare engelsk
+bash build.sh nb    # bare norsk
+bash build.sh clean # rydder opp
 ```
 
-Resultatet legges som `CV_Fredrik_Carsten_Hansteen_En.pdf` / `…_Nb.pdf`.
+Direkte med `latexmk` (`-jobname` setter PDF-filnavnet):
+
+```bash
+latexmk -lualatex -jobname=CV_Fredrik_Carsten_Hansteen_En English.tex
+latexmk -lualatex -jobname=CV_Fredrik_Carsten_Hansteen_Nb Norsk.tex
+```
+
+Resultatet legges som `CV_Fredrik_Carsten_Hansteen_En.pdf` / `CV_Fredrik_Carsten_Hansteen_Nb.pdf`.
 
 De to inngangsfilene gjør bare to ting: setter `\cvlang` og inputter `main.tex`.
 
 ```
-CV_Fredrik_Carsten_Hansteen_En.tex   ┐
-CV_Fredrik_Carsten_Hansteen_Nb.tex   ┴─►  main.tex  ─►  style/  +  content/
+English.tex   ┐
+Norsk.tex     ┴─►  main.tex  ─►  style/  +  content/
 ```
 
 `main.tex` laster `style/main.sty` (som igjen drar inn alle delpakker i riktig rekkefølge) og inputter innholdsfilene under `content/` i ønsket rekkefølge.
@@ -32,8 +36,8 @@ CV_Fredrik_Carsten_Hansteen_Nb.tex   ┴─►  main.tex  ─►  style/  +  con
 ## Mappestruktur
 
 ```
-├── CV_Fredrik_Carsten_Hansteen_En.tex   Inngang — engelsk
-├── CV_Fredrik_Carsten_Hansteen_Nb.tex   Inngang — norsk
+├── English.tex                          Inngang — engelsk
+├── Norsk.tex                            Inngang — norsk
 ├── main.tex                             Felles dokumentkropp
 ├── README.md
 ├── style/
@@ -76,19 +80,19 @@ CV_Fredrik_Carsten_Hansteen_Nb.tex   ┴─►  main.tex  ─►  style/  +  con
 
 Innholdsfilene under `content/` kaller utelukkende det offentlige API-et fra `style/components.sty`:
 
-| Makro                                        | Bruk                                                                                              |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `\cvheader{navn}{kontakt}{foto}`             | Topptekst: rundt portrett til venstre, navn + kontaktlinje vertikalt sentrert til høyre.          |
-| `\cvcontactsep`                              | Visuell separator (•) brukt mellom elementer i kontaktlinjen.                                     |
-| `\cvsection{tittel}`                         | Avsnittsoverskrift (uppercased) med tynn linje *over* (mellom seksjoner).                         |
-| `\cventry{rolle}{org}{sted}{datoer}`         | Jobb-oppføring på én linje: rolle \| org \| sted, med høyrejustert dato. Tom `datoer` er gyldig.  |
-| `\cveduentry{tittel}{org}{sted}{datoer}`     | Utdanningsoppføring på to linjer (tittel + dato, deretter org \| sted) — for lengre titler.       |
-| `\cvsubentry{tekst}{datoer}`                 | Underoppføring under `\cventry` (f.eks. flere roller hos samme arbeidsgiver).                     |
-| `\begin{cvbullets} … \end{cvbullets}`        | Punktliste under en oppføring.                                                                    |
-| `\cvselected{tittel}{undertittel}{datoer}`   | Oppføring i «Utvalgt erfaring» (én linje, dato høyrejustert).                                     |
-| `\cvtech{stack}`                             | Innrykket teknologilinje rett under `\cvselected`.                                                |
-| `\cvother{tittel}{org}{datoer}{beskrivelse}` | Kompakt oppføring i «Annen erfaring».                                                             |
-| `\cvskillline{etikett}{kommadelt liste}`     | Linje med fet etikett og en kommadelt liste — ATS-vennlig ren tekst.                              |
+| Makro                                            | Bruk                                                                                             |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `\cvheader{navn}{kontakt}{foto}`                 | Topptekst: rundt portrett til venstre, navn + kontaktlinje vertikalt sentrert til høyre.         |
+| `\cvcontactsep`                                  | Visuell separator (•) brukt mellom elementer i kontaktlinjen.                                    |
+| `\cvsection{tittel}`                             | Avsnittsoverskrift (uppercased) med tynn linje _over_ (mellom seksjoner).                        |
+| `\cventry{rolle}{org}{sted}{datoer}`             | Jobb-oppføring på én linje: rolle \| org \| sted, med høyrejustert dato. Tom `datoer` er gyldig. |
+| `\cveduentry{tittel}{org}{sted}{datoer}`         | Utdanningsoppføring på to linjer (tittel + dato, deretter org \| sted) — for lengre titler.      |
+| `\cvsubentry{rolle}{emne}{startdato}{sluttdato}` | Underoppføring under `\cventry` med justerte start/sluttdatoer og automatisk kulepunkt.          |
+| `\begin{cvbullets} … \end{cvbullets}`            | Punktliste under en oppføring.                                                                   |
+| `\cvselected{tittel}{undertittel}{datoer}`       | Oppføring i «Utvalgt erfaring» (én linje, dato høyrejustert).                                    |
+| `\cvtech{stack}`                                 | Innrykket teknologilinje rett under `\cvselected`.                                               |
+| `\cvother{tittel}{org}{datoer}{beskrivelse}`     | Kompakt oppføring i «Annen erfaring».                                                            |
+| `\cvskillline{etikett}{kommadelt liste}`         | Linje med fet etikett og en kommadelt liste — ATS-vennlig ren tekst.                             |
 
 ## Tospråklighet
 
@@ -116,10 +120,10 @@ For en arbeidsgiver med flere roller, kombiner `\cventry` (tom `datoer`-argument
 
 ```latex
 \cventry{Læringsassistent}{NTNU}{Trondheim, Norge}{}
-\cvsubentry{Læringsassistent i IT2901 -- Informatikk prosjektarbeid II}
-           {Januar 2025 -- Juni 2025}
-\cvsubentry{Læringsassistent i KJ2095 -- Eksperter i Teams}
-           {Januar 2025 -- Juni 2025}
+\cvsubentry{Læringsassistent}{IT2901 - Informatikk prosjektarbeid II}
+           {Januar 2025}{Juni 2025}
+\cvsubentry{Læringsassistent}{KJ2095 - Eksperter i Teams}
+           {Januar 2025}{Juni 2025}
 ```
 
 ## Fonter
@@ -139,4 +143,4 @@ fonts/
 - TeX Live 2023+ (eller MiKTeX) med `lualatex`
 - Pakker: `polyglossia`, `fontspec`, `geometry`, `tabularx`, `enumitem`,
   `tikz`, `hyperref`, `fancyhdr`, `graphicx`, `microtype`, `xcolor`,
-  `etoolbox`
+  `etoolbox`, `needspace`, `lastpage`

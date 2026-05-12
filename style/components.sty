@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{style/components}[2026/05/12 v3.1 CV components]
+\ProvidesPackage{style/components}[2026/05/12 v3.3 CV components]
 
 \newcommand{\cvcontactsep}{~\textbullet~}
 
@@ -17,7 +17,7 @@
       \begin{scope}
         \clip (0,0) circle (1.2cm);
         \node[inner sep=0pt] at (0,0)
-          {\includegraphics[width=3cm]{#3}};
+        {\includegraphics[width=3cm]{#3}};
       \end{scope}
     \end{tikzpicture}%
   \end{minipage}\par
@@ -25,57 +25,78 @@
 }
 
 \newcommand{\cvsection}[1]{%
-  \vspace{2pt}\par
+  \vspace{8pt}\par
   {\color{cvsoft}\rule{\linewidth}{0.5pt}}\par
-  \vspace{2pt}
-  {\fontsize{11}{13}\selectfont\bfseries\color{cvink}%
+  \vspace{3pt}
+  {\fontsize{12}{14}\selectfont\bfseries\color{cvink}%
     \MakeUppercase{#1}\par}%
-  \vspace{4pt}%
+  \vspace{5pt}%
 }
 
-\newcommand{\cv@bar}{\,$|$\,}
+\newcommand{\cv@bar}{\enspace\textbf{|}\enspace}
 
-% \hfill keeps dates and the title on the same baseline; tabularx put the
-% date in its own row whenever the X-column content was wide.
+\newcommand{\cvdate}[1]{{\bfseries\color{cvmuted}#1}}
+
 \newcommand{\cventry}[4]{%
+  \needspace{4\baselineskip}%
+  \vspace{5pt}%
   \par\noindent
-  {\bfseries\color{cvink}#1}\cv@bar #2\cv@bar #3%
-  \hfill{\small\color{cvmuted}#4}\par
+  {\fontsize{11}{13}\selectfont\bfseries\color{cvink}#1}\cv@bar #2\cv@bar #3%
+  \hfill\cvdate{#4}\par
   \vspace{1pt}%
 }
 
 \newcommand{\cveduentry}[4]{%
+  \vspace{5pt}%
   \par\noindent
-  {\bfseries\color{cvink}#1}\hfill{\small\color{cvmuted}#4}\par
+  {\fontsize{11}{13}\selectfont\bfseries\color{cvink}#1}\hfill\cvdate{#4}\par
   {\color{cvink}#2\cv@bar #3}\par
   \vspace{6pt}%
 }
 
-\newcommand{\cvsubentry}[2]{%
-  \par\noindent #1\hfill{\small\color{cvmuted}#2}\par
+% #1 role  #2 course  #3 start-date  #4 end-date
+% Five adjacent fixed-width boxes ensure everything sits on one line with
+% aligned columns across all sub-entries.
+% Bullet box (1.8em) matches the leftmargin of cvbullets itemize.
+% Role col: 3.8 cm  Start-date col: 2.3 cm  End-date col: 3.0 cm
+% Course col fills the rest: linewidth - 1.8em - 3.8 - 2.3 - 0.6(dash) - 3.0 = linewidth - 1.8em - 9.7cm
+\newcommand{\cvsubentry}[4]{%
+  \par\noindent
+  \makebox[1.8em][l]{\hspace{1.0em}\textbullet}%
+  \makebox[3.8cm][l]{{\color{cvink}#1}}%
+  \makebox[\dimexpr\linewidth-1.8em-9.7cm\relax][l]{#2}%
+  \makebox[2.3cm][l]{\cvdate{#3}}%
+  \makebox[0.6cm][c]{--}%
+  \makebox[3.0cm][r]{\cvdate{#4}}\par
+  \vspace{1pt}%
 }
 
 \newenvironment{cvbullets}{%
+  \nopagebreak
   \begin{itemize}%
-}{%
+    }{%
   \end{itemize}\vspace{7pt}%
 }
 
 \newcommand{\cvselected}[3]{%
+  \needspace{8\baselineskip}%
   \par\noindent
   {\bfseries\color{cvink}#1}\cv@bar{\itshape #2}%
-  \hfill{\small\color{cvmuted}#3}\par
+  \hfill\cvdate{#3}\par
+  \nopagebreak%
 }
 
 \newcommand{\cvtech}[1]{%
+  \nopagebreak
   \par\noindent\hspace*{1em}{\itshape\small\color{cvmuted}#1}\par
+  \nopagebreak
   \vspace{1pt}%
 }
 
 \newcommand{\cvother}[4]{%
   \par\noindent
   {\bfseries\color{cvink}#1}\cv@bar #2\par
-  {\small\color{cvmuted}#3}\par
+  \cvdate{#3}\par
   #4\par
   \vspace{7pt}%
 }
