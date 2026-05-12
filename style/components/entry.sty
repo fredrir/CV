@@ -8,7 +8,7 @@
   \par\noindent
   {\cvfontentry\bfseries\color{cvink}#1}\cv@bar #2\cv@bar #3%
   \hfill\cvdate{#4}\par
-  \vspace{1pt}%
+  \ifblank{#4}{\vspace{5pt}}{\vspace{1pt}}%
 }
 
 \newenvironment{cvbullets}{%
