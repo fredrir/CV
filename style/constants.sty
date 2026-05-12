@@ -1,15 +1,23 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{style/constants}[2026/05/12 v2.0 CV constants]
 
-\newcommand{\cvfontname}{\fontsize{20}{24}\selectfont}
-\newcommand{\cvfontsection}{\fontsize{12}{14}\selectfont}
-\newcommand{\cvfontentry}{\fontsize{11}{13}\selectfont}
+%   <baselineskip> — distance in pt from one text baseline to the next;
+%                    controls line spacing for multi-line text at this size.
+%                    ~1.2× size (so 20pt → 24pt, 12pt → 14pt)
+
+\newcommand{\cvfontname}   {\fontsize{20}{24}\selectfont} % 1. name in header
+\newcommand{\cvfontsection}{\fontsize{12}{14}\selectfont} % 2. section headings (UTDANNING, ARBEIDSERFARING …)
+\newcommand{\cvfontentry}  {\fontsize{11}{13}\selectfont} % 3. entry titles (role | org | location, degree title)
+\newcommand{\cvfontbody}   {\normalsize}                  % 4. body text (bullets, dates, contact, specialisation)
 
 % Vertical spacing scale
-\newlength{\cvspaceheader}   \setlength{\cvspaceheader}{5pt} % after section title (UTDANNING, ARBEIDSERFARING …)
-\newlength{\cvspacesection}  \setlength{\cvspacesection}{3pt} % between sections, before the rule line
-\newlength{\cvspaceentry}    \setlength{\cvspaceentry}{6pt} % between entries (jobs, education items, selected projects)
-\newlength{\cvspacebullet}   \setlength{\cvspacebullet}{1pt} % between bullet points, skill lines, sub-entry items
-\newlength{\cvspacesubgroup} \setlength{\cvspacesubgroup}{3pt} % between sub-entry date groups (kept equal to cvspacebullet)
+\newlength{\cvspaceheader}        \setlength{\cvspaceheader}{5pt}       % after entry title before sub-entries
+\newlength{\cvspacesectiontop}    \setlength{\cvspacesectiontop}{9pt}   % above section block, before rule
+\newlength{\cvspacesectionrule}   \setlength{\cvspacesectionrule}{4pt}  % between section title text and rule
+\newlength{\cvspacesectionbottom} \setlength{\cvspacesectionbottom}{3pt}% after rule, before first entry
+\newlength{\cvspaceentry}         \setlength{\cvspaceentry}{6pt}        % between entries
+\newlength{\cvspacebullet}        \setlength{\cvspacebullet}{1pt}       % between bullet points / skill lines
+\newlength{\cvspacesubgroup}      \setlength{\cvspacesubgroup}{3pt}     % between sub-entry date groups
+\newlength{\cvspaceheaderinner}   \setlength{\cvspaceheaderinner}{6pt}  % between name and contact line in header
 
 \endinput

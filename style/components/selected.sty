@@ -1,19 +1,20 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{style/components/selected}[2026/05/12 v1.1 CV selected experience]
+\ProvidesPackage{style/components/selected}[2026/05/12 v1.2 CV selected experience]
 
 % #1 = project/role title, #2 = subtitle or organisation, #3 = date range
 \newcommand{\cvselected}[3]{%
   \needspace{8\baselineskip}%
+  \vspace{\cvspaceentry}%
   \par\noindent
-  {\bfseries\color{cvink}#1}\cv@bar{\itshape #2}%
-  \hfill\cvdate{#3}\par
+  {\cvfontentry\color{cvink}{\bfseries #1}\cv@bar{\itshape #2}\hfill}%
+  \cvdate{#3}\par
   \nopagebreak%
 }
 
 % #1 = comma-separated technology stack
 \newcommand{\cvtech}[1]{%
   \nopagebreak
-  \par\noindent\hspace*{1.8em}{\itshape\small\color{cvmuted}#1}\par
+  \par\noindent\hspace*{1.8em}{\cvfontbody\itshape\color{cvmuted}#1}\par
   \nopagebreak
   \vspace{\cvspacebullet}%
 }

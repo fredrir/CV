@@ -1,12 +1,17 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{style/components/education}[2026/05/12 v1.1 CV education entry]
+\ProvidesPackage{style/components/education}[2026/05/12 v1.2 CV education entry]
 
-% #1 = degree title, #2 = institution, #3 = location, #4 = date range
-\newcommand{\cveduentry}[4]{%
+% [#1] = specialisation label (optional)
+%  #2  = degree title, #3 = institution, #4 = location, #5 = date range
+\newcommand{\cveduentry}[5][]{%
+  \needspace{8\baselineskip}%
   \vspace{\cvspaceentry}%
   \par\noindent
-  {\cvfontentry\bfseries\color{cvink}#1}\hfill\cvdate{#4}\par
-  {\color{cvink}#2\cv@bar #3}\par
+  {\cvfontentry\bfseries\color{cvink}#2}\hfill\cvdate{#5}\par
+  {\color{cvink}#3\cv@bar #4}\par
+  \ifblank{#1}{}{%
+    {\cvfontbody\color{cvmuted}#1}\par
+  }%
   \vspace{\cvspaceentry}%
 }
 
