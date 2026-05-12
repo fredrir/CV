@@ -1,8 +1,20 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{style/constants}[2026/05/12 v1.0 CV constants]
+\ProvidesPackage{style/constants}[2026/05/12 v2.0 CV constants]
 
 \newcommand{\cvfontname}{\fontsize{20}{24}\selectfont}
 \newcommand{\cvfontsection}{\fontsize{12}{14}\selectfont}
 \newcommand{\cvfontentry}{\fontsize{11}{13}\selectfont}
+
+% Vertical spacing scale
+%   cvspaceheader   — after section title (UTDANNING, ARBEIDSERFARING …)
+%   cvspacesection  — between sections, before the rule line
+%   cvspaceentry    — between entries (jobs, education items, selected projects)
+%   cvspacebullet   — between bullet points, skill lines, sub-entry items
+%   cvspacesubgroup — between sub-entry date groups (kept equal to cvspacebullet)
+\newlength{\cvspaceheader}   \setlength{\cvspaceheader}{5pt}
+\newlength{\cvspacesection}  \setlength{\cvspacesection}{8pt}
+\newlength{\cvspaceentry}    \setlength{\cvspaceentry}{6pt}
+\newlength{\cvspacebullet}   \setlength{\cvspacebullet}{1pt}
+\newlength{\cvspacesubgroup} \setlength{\cvspacesubgroup}{3pt}
 
 \endinput

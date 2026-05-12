@@ -1,13 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{style/components/section}[2026/05/12 v1.0 CV section heading]
+\ProvidesPackage{style/components/section}[2026/05/12 v1.1 CV section heading]
 
 % #1 = section title (uppercased automatically)
 \newcommand{\cvsection}[1]{%
-  \vspace{8pt}\par
+  \vspace{\cvspacesection}\par
   {\color{cvsoft}\rule{\linewidth}{0.5pt}}\par
   \vspace{3pt}
   {\cvfontsection\bfseries\color{cvink}\MakeUppercase{#1}\par}%
-  \vspace{5pt}%
+  \vspace{\cvspaceheader}%
 }
 
 \endinput

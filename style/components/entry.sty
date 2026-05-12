@@ -1,21 +1,21 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{style/components/entry}[2026/05/12 v1.0 CV experience entry]
+\ProvidesPackage{style/components/entry}[2026/05/12 v1.1 CV experience entry]
 
-% #1 = role/title, #2 = organisation, #3 = location, #4 = date range (empty when followed by \cvsubentry)
+% #1 = role/title, #2 = organisation, #3 = location, #4 = date range (empty when followed by \cvsubentryblock)
 \newcommand{\cventry}[4]{%
   \needspace{4\baselineskip}%
-  \vspace{5pt}%
+  \vspace{\cvspaceentry}%
   \par\noindent
   {\cvfontentry\bfseries\color{cvink}#1}\cv@bar #2\cv@bar #3%
   \hfill\cvdate{#4}\par
-  \ifblank{#4}{\vspace{5pt}}{\vspace{1pt}}%
+  \ifblank{#4}{\vspace{\cvspaceheader}}{\vspace{\cvspacebullet}}%
 }
 
 \newenvironment{cvbullets}{%
   \nopagebreak
   \begin{itemize}%
 }{%
-  \end{itemize}\vspace{7pt}%
+  \end{itemize}\vspace{\cvspaceentry}%
 }
 
 \endinput
