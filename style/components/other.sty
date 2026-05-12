@@ -1,13 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{style/components/other}[2026/05/12 v1.1 CV other experience]
+\ProvidesPackage{style/components/other}[2026/05/12 v1.2 CV other experience]
 
 % #1 = role title, #2 = organisation, #3 = date range, #4 = description
 \newcommand{\cvother}[4]{%
   \par\noindent
-  {\bfseries\color{cvink}#1}\cv@bar #2\par
-  \cvdate{#3}\par
-  #4\par
-  \vspace{\cvspaceentry}%
+  {\bfseries\color{cvink}#1}\cv@bar #2%
+  \hfill\cvdate{#3}\par
+  \vspace{\cvspacebullet}%
+  \begin{cvbullets}
+    \item #4%
+  \end{cvbullets}%
 }
 
 \endinput

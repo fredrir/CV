@@ -15,7 +15,7 @@
 % #1 = course or project name, #2 = position percentage
 \newcommand{\cvsubentryitem}[2]{%
   \par\noindent
-  \hspace{1.0em}\textbullet\enspace
+  \hspace{1.0em}\ifcv@firstitem\textbullet\else\phantom{\textbullet}\fi\enspace
   #1~(#2)%
   \ifcv@firstitem
     \hfill\cvdate{\cv@groupstart\enspace--\enspace\cv@groupend}%
