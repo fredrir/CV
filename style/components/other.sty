@@ -3,11 +3,8 @@
 
 % #1 = role title, #2 = organisation, #3 = date range, #4 = description
 \newcommand{\cvother}[4]{%
-  \needspace{8\baselineskip}%
-  \vspace{\cvspaceentry}%
-  \par\noindent
-  {\cvfontentry\color{cvink}{\bfseries #1}\cv@bar{\itshape #2}\hfill}%
-  \hfill\cvdate{#3}\par
+  \cv@entrypre
+  \cv@row{#1}{#2}{#3}%
   \vspace{\cvspacebullet}%
   \begin{cvbullets}
     \item #4%

@@ -6,9 +6,11 @@ NB=CV_Fredrik_Carsten_Hansteen_Nb
 
 case "${1:-all}" in
   en)  latexmk -lualatex -jobname="$EN" english.tex ;;
-  nb)  latexmk -lualatex -jobname="$NB" norsk.tex ;;
+  nb)  latexmk -lualatex -jobname="$NB" norsk.tex
+       pdftoppm -r 150 -png -f 1 -l 2 "$NB.pdf" images/preview ;;
   all) latexmk -lualatex -jobname="$EN" english.tex
-       latexmk -lualatex -jobname="$NB" norsk.tex ;;
+       latexmk -lualatex -jobname="$NB" norsk.tex
+       pdftoppm -r 150 -png -f 1 -l 2 "$NB.pdf" images/preview ;;
   clean)
        latexmk -C -jobname="$EN" english.tex
        latexmk -C -jobname="$NB" norsk.tex ;;

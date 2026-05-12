@@ -2,10 +2,27 @@
 \ProvidesPackage{style/components/utils}[2026/05/12 v1.0 CV shared primitives]
 
 % bullet separator between contact line elements
-\newcommand{\cvcontactsep}{~\textbullet~}
+\newcommand{\cvcontactsep}{~~}
 % pipe separator between entry fields (role | org | location)
 \newcommand{\cv@bar}{\enspace|\enspace}
 % #1 = date text — bold, muted colour
 \newcommand{\cvdate}[1]{{\bfseries\color{cvmuted}#1}}
+
+% filled square bullet
+\newcommand{\cvsquarebullet}{\rule[0.2ex]{0.55ex}{0.55ex}}
+
+% common entry preamble
+\newcommand{\cv@entrypre}{%
+    \needspace{8\baselineskip}%
+    \vspace{\cvspaceentry}%
+    \par\noindent
+}
+
+% two-part entry title row: bold title | italic subtitle — right-flush date
+% #1 = bold title, #2 = italic subtitle, #3 = date
+\newcommand{\cv@row}[3]{%
+    {\cvfontentry\color{cvink}{\bfseries #1}\cv@bar{\itshape #2}\hfill}%
+    \cvdate{#3}\par
+}
 
 \endinput

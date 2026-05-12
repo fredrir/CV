@@ -1,8 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{style/components/skills}[2026/05/12 v1.1 CV skills]
 
+\newif\ifcv@firstskill
+\cv@firstskilltrue
+
 % #1 = bold label, #2 = comma-separated skill list
 \newcommand{\cvskillline}[2]{%
+  \ifcv@firstskill\vspace{\cvspaceentry}\global\cv@firstskillfalse\fi
   \par\noindent{\bfseries\color{cvink}#1:}~#2\par
   \vspace{\cvspacebullet}%
 }

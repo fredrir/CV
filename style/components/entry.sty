@@ -4,9 +4,7 @@
 
 % #1 = role/title, #2 = organisation, #3 = location, #4 = date range (empty when followed by \cvsubentryblock)
 \newcommand{\cventry}[4]{%
-  \needspace{8\baselineskip}%
-  \vspace{\cvspaceentry}%
-  \par\noindent
+  \cv@entrypre
   {\cvfontentry\color{cvink}{\bfseries #1}\cv@bar #2\cv@bar #3\hfill}%
   \cvdate{#4}\par
   \ifblank{#4}{\vspace{\cvspaceheader}}{\vspace{\cvspacebullet}}%

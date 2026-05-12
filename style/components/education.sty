@@ -4,9 +4,7 @@
 % [#1] = specialisation label (optional)
 %  #2  = degree title, #3 = institution, #4 = location, #5 = date range
 \newcommand{\cveduentry}[5][]{%
-  \needspace{8\baselineskip}%
-  \vspace{\cvspaceentry}%
-  \par\noindent
+  \cv@entrypre
   {\cvfontentry\bfseries\color{cvink}#2}\hfill\cvdate{#5}\par
   {\color{cvink}#3\cv@bar #4}\par
   \ifblank{#1}{}{%

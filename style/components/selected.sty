@@ -3,11 +3,8 @@
 
 % #1 = project/role title, #2 = subtitle or organisation, #3 = date range
 \newcommand{\cvselected}[3]{%
-  \needspace{8\baselineskip}%
-  \vspace{\cvspaceentry}%
-  \par\noindent
-  {\cvfontentry\color{cvink}{\bfseries #1}\cv@bar{\itshape #2}\hfill}%
-  \cvdate{#3}\par
+  \cv@entrypre
+  \cv@row{#1}{#2}{#3}%
   \nopagebreak%
 }
 
