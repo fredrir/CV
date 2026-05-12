@@ -1,14 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{style/components/subentry}[2026/05/12 v1.0 CV multi-role sub-entry]
+\ProvidesPackage{style/components/subentry}[2026/05/12 v1.1 CV multi-role sub-entry]
 
+% #1 = role/position, #2 = course or project name, #3 = start date, #4 = end date
 \newcommand{\cvsubentry}[4]{%
   \par\noindent
-  \makebox[\cvsubbulletwd][l]{\hspace{1.0em}\textbullet}%
-  \makebox[\cvsubrolewd][l]{{\color{cvink}#1}}%
-  \makebox[\dimexpr\linewidth-\cvsubbulletwd-\cvsubrolewd-\cvsubstartwd-\cvsubdashwd-\cvsubendwd\relax][l]{#2}%
-  \makebox[\cvsubstartwd][l]{\cvdate{#3}}%
-  \makebox[\cvsubdashwd][c]{--}%
-  \makebox[\cvsubendwd][r]{\cvdate{#4}}\par
+  \hspace{1.0em}\textbullet\enspace
+  {\color{cvink}#1},~#2%
+  \hfill\cvdate{#3\enspace--\enspace#4}\par
   \vspace{1pt}%
 }
 

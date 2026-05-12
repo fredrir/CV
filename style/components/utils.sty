@@ -1,8 +1,11 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{style/components/utils}[2026/05/12 v1.0 CV shared primitives]
 
+% bullet separator between contact line elements
 \newcommand{\cvcontactsep}{~\textbullet~}
-\newcommand{\cv@bar}{\enspace\textbf{|}\enspace}
+% pipe separator between entry fields (role | org | location)
+\newcommand{\cv@bar}{\enspace|\enspace}
+% #1 = date text — bold, muted colour
 \newcommand{\cvdate}[1]{{\bfseries\color{cvmuted}#1}}
 
 \endinput
