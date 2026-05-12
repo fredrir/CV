@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(command -v latexmk lualatex)",
+      "Bash(lualatex --version)",
+      "Bash(latexmk -lualatex -interaction=nonstopmode -halt-on-error CV_Fredrik_Carsten_Hansteen_En.tex)",
+      "Bash(latexmk -lualatex -interaction=nonstopmode -halt-on-error CV_Fredrik_Carsten_Hansteen_Nb.tex)",
+      "Bash(latexmk -C)"
+    ]
+  }
+}

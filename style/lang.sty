@@ -1,0 +1,47 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/lang}[2026/05/12 v2.0 CV language switching]
+
+\RequirePackage{etoolbox}
+\RequirePackage{polyglossia}
+
+\providecommand{\cvlang}{en}
+
+% Labels are bound to concrete strings at load time (not deferred
+% conditionals) so \MakeUppercase inside \cvsection picks them up.
+\ifdefstring{\cvlang}{nb}{%
+  \setdefaultlanguage{norwegian}%
+  \setotherlanguage{english}%
+
+  \newcommand{\enor}[2]{#2}%
+
+  \newcommand{\lbleducation} {Utdanning}%
+  \newcommand{\lblexperience}{Arbeidserfaring}%
+  \newcommand{\lblselected}  {Utvalgt erfaring}%
+  \newcommand{\lblskills}    {Tekniske ferdigheter}%
+  \newcommand{\lblother}     {Annen erfaring}%
+
+  \newcommand{\lblprogramming}{Programmeringsspråk}%
+  \newcommand{\lblframeworks} {Rammeverk \& Verktøy}%
+  \newcommand{\lblothertech}  {Andre}%
+
+  \newcommand{\lblpresent}{i dag}%
+}{%
+  \setdefaultlanguage{english}%
+  \setotherlanguage{norwegian}%
+
+  \newcommand{\enor}[2]{#1}%
+
+  \newcommand{\lbleducation} {Education}%
+  \newcommand{\lblexperience}{Work Experience}%
+  \newcommand{\lblselected}  {Selected Experience}%
+  \newcommand{\lblskills}    {Technical Skills}%
+  \newcommand{\lblother}     {Other Experience}%
+
+  \newcommand{\lblprogramming}{Programming Languages}%
+  \newcommand{\lblframeworks} {Frameworks \& Tools}%
+  \newcommand{\lblothertech}  {Other}%
+
+  \newcommand{\lblpresent}{Present}%
+}
+
+\endinput

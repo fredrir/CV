@@ -1,0 +1,88 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/components}[2026/05/12 v3.1 CV components]
+
+\newcommand{\cvcontactsep}{~\textbullet~}
+
+\newcommand{\cvheader}[3]{%
+  \noindent
+  \begin{minipage}[c]{\dimexpr\linewidth-3.0cm\relax}
+    {\fontsize{20}{24}\selectfont\bfseries\color{cvink}#1\par}
+    \vspace{4pt}
+    {\small\color{cvink}#2\par}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[c]{2.6cm}
+    \raggedleft
+    \begin{tikzpicture}
+      \begin{scope}
+        \clip (0,0) circle (1.2cm);
+        \node[inner sep=0pt] at (0,0)
+          {\includegraphics[width=3cm]{#3}};
+      \end{scope}
+    \end{tikzpicture}%
+  \end{minipage}\par
+  \vspace{6pt}%
+}
+
+\newcommand{\cvsection}[1]{%
+  \vspace{2pt}\par
+  {\color{cvsoft}\rule{\linewidth}{0.5pt}}\par
+  \vspace{2pt}
+  {\fontsize{11}{13}\selectfont\bfseries\color{cvink}%
+    \MakeUppercase{#1}\par}%
+  \vspace{4pt}%
+}
+
+\newcommand{\cv@bar}{\,$|$\,}
+
+% \hfill keeps dates and the title on the same baseline; tabularx put the
+% date in its own row whenever the X-column content was wide.
+\newcommand{\cventry}[4]{%
+  \par\noindent
+  {\bfseries\color{cvink}#1}\cv@bar #2\cv@bar #3%
+  \hfill{\small\color{cvmuted}#4}\par
+  \vspace{1pt}%
+}
+
+\newcommand{\cveduentry}[4]{%
+  \par\noindent
+  {\bfseries\color{cvink}#1}\hfill{\small\color{cvmuted}#4}\par
+  {\color{cvink}#2\cv@bar #3}\par
+  \vspace{6pt}%
+}
+
+\newcommand{\cvsubentry}[2]{%
+  \par\noindent #1\hfill{\small\color{cvmuted}#2}\par
+}
+
+\newenvironment{cvbullets}{%
+  \begin{itemize}%
+}{%
+  \end{itemize}\vspace{7pt}%
+}
+
+\newcommand{\cvselected}[3]{%
+  \par\noindent
+  {\bfseries\color{cvink}#1}\cv@bar{\itshape #2}%
+  \hfill{\small\color{cvmuted}#3}\par
+}
+
+\newcommand{\cvtech}[1]{%
+  \par\noindent\hspace*{1em}{\itshape\small\color{cvmuted}#1}\par
+  \vspace{1pt}%
+}
+
+\newcommand{\cvother}[4]{%
+  \par\noindent
+  {\bfseries\color{cvink}#1}\cv@bar #2\par
+  {\small\color{cvmuted}#3}\par
+  #4\par
+  \vspace{7pt}%
+}
+
+\newcommand{\cvskillline}[2]{%
+  \par\noindent{\bfseries\color{cvink}#1:}~#2\par
+  \vspace{3pt}%
+}
+
+\endinput
