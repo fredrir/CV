@@ -1,11 +1,11 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{style/components/subentry}[2026/05/12 v1.1 CV multi-role sub-entry]
 
-% #1 = role/position, #2 = course or project name, #3 = start date, #4 = end date
+% #1 = course or project name, #2 = position percentage (e.g. 23,08\%), #3 = start date, #4 = end date
 \newcommand{\cvsubentry}[4]{%
   \par\noindent
   \hspace{1.0em}\textbullet\enspace
-  {\color{cvink}#1},~#2%
+  #1~(#2)%
   \hfill\cvdate{#3\enspace--\enspace#4}\par
   \vspace{1pt}%
 }
