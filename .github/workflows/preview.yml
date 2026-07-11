@@ -12,6 +12,8 @@ on:
       - 'style/**'
       - '*.tex'
       - 'build.sh'
+  # Manual trigger — e.g. to create/refresh the rolling "latest" release on demand.
+  workflow_dispatch:
 
 permissions:
   contents: write
