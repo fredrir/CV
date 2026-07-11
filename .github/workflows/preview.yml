@@ -35,7 +35,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build both PDFs + previews
         uses: ./.github/actions/build-cv
@@ -44,7 +44,7 @@ jobs:
           target: all
 
       - name: Commit refreshed previews
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'chore: refresh CV previews [skip ci]'
           file_pattern: 'images/preview-*.png'
@@ -52,7 +52,7 @@ jobs:
           commit_user_email: '41898282+github-actions[bot]@users.noreply.github.com'
 
       - name: Update rolling "latest" release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: latest
           name: Latest CV
