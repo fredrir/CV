@@ -77,5 +77,4 @@ else
   echo "No rendered differences versus \`main\`. ✅"
 fi
 
-# Keep only head renders + diff overlays in the uploaded artifact.
 rm -f diff/*-base-*.png

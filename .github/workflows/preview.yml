@@ -1,9 +1,5 @@
 name: Build, Previews & Release
 
-# On every push to main that touches the CV sources: rebuild both PDFs,
-# commit the refreshed README preview images, and update the rolling
-# "latest" GitHub Release with the fresh PDFs.
-
 on:
   push:
     branches: [main]
@@ -12,7 +8,6 @@ on:
       - 'style/**'
       - '*.tex'
       - 'build.sh'
-  # Manual trigger — e.g. to create/refresh the rolling "latest" release on demand.
   workflow_dispatch:
 
 permissions:
@@ -58,7 +53,7 @@ jobs:
         with:
           tag_name: latest
           name: Latest CV
-          body: 'Alltid nyeste bygg fra `main` (commit ${{ github.sha }}).'
+          body: 'commit ${{ github.sha }}).'
           make_latest: true
           fail_on_unmatched_files: true
           files: |

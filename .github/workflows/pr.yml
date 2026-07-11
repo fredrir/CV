@@ -3,7 +3,6 @@ name: PR Build & Preview
 on:
   pull_request:
     branches: [main]
-    # Only build/diff when the CV itself changes — skip workflow-only PRs (e.g. Dependabot).
     paths:
       - 'content/**'
       - 'style/**'
@@ -34,7 +33,6 @@ jobs:
             git openssh-client poppler-utils imagemagick ca-certificates
           git config --global --add safe.directory '*'
 
-      # PR head at the repo root, base into ./base for the diff.
       - name: Checkout PR head
         uses: actions/checkout@v7
 
