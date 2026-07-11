@@ -2,4 +2,4 @@
 # Binaries and vendored fonts are never spell-checked.
 skip = *.pdf,*.png,*.jpg,*.ttf,*.TTF,./.git,./fonts,./images
 # Names / domain terms + Norwegian words an English checker misreads. Extend as needed.
-ignore-words-list = fredrir,hansteen,ntnu,rif,nat,ba,nd,te,fo,ue,ist,gir,som,januar,juni
+ignore-words-list = fredrir,hansteen,ntnu,rif,nat,ba,nd,te,fo,ue,ist,gir,som,januar,juni,manuell,dashbord,delt
