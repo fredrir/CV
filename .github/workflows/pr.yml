@@ -36,10 +36,10 @@ jobs:
 
       # PR head at the repo root, base into ./base for the diff.
       - name: Checkout PR head
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Checkout base (${{ github.event.pull_request.base.ref }})
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.base.sha }}
           path: base
@@ -61,7 +61,7 @@ jobs:
         run: bash .github/scripts/pdf-diff.sh base . | tee comment.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload PDFs + diff overlays
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cv-pr-${{ github.event.pull_request.number }}
           path: |
@@ -72,7 +72,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Post / update PR comment
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: cv-preview
           path: comment.md
