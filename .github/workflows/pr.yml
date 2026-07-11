@@ -3,6 +3,14 @@ name: PR Build & Preview
 on:
   pull_request:
     branches: [main]
+    # Only build/diff when the CV itself changes — skip workflow-only PRs (e.g. Dependabot).
+    paths:
+      - 'content/**'
+      - 'style/**'
+      - '*.tex'
+      - 'build.sh'
+      - '.github/actions/build-cv/**'
+      - '.github/scripts/**'
 
 permissions:
   contents: read

@@ -55,10 +55,12 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           # 403/429/999 = alive but blocking automated requests (LinkedIn, etc.)
+          # Exclude our own release assets — they only 404 until the first release exists.
           args: >-
             --no-progress
             --max-retries 2
             --accept 200..=299,403,429,999
+            --exclude 'github\.com/fredrir/CV/releases'
             'content/**/*.tex' '*.tex' 'README.md'
           fail: true
         env:
