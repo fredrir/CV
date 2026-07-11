@@ -1,0 +1,65 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  spellcheck:
+    name: Spell check (warnings only)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install codespell
+        run: pip install codespell
+      - name: Run codespell
+        run: codespell content README.md english.tex norsk.tex main.tex
+
+  chktex:
+    name: LaTeX lint (warnings only)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install chktex
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq chktex
+      - name: Run chktex
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          for f in *.tex content/**/*.tex; do
+            echo "::group::chktex $f"
+            chktex "$f" || true
+            echo "::endgroup::"
+          done
+
+  linkcheck:
+    name: Dead-link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check links in CV sources
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # 403/429/999 = alive but blocking automated requests (LinkedIn, etc.)
+          args: >-
+            --no-progress
+            --max-retries 2
+            --accept 200..=299,403,429,999
+            'content/**/*.tex' '*.tex' 'README.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

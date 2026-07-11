@@ -1,0 +1,64 @@
+name: Build, Previews & Release
+
+# On every push to main that touches the CV sources: rebuild both PDFs,
+# commit the refreshed README preview images, and update the rolling
+# "latest" GitHub Release with the fresh PDFs.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'style/**'
+      - '*.tex'
+      - 'build.sh'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: main-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build, refresh previews & rolling release
+    runs-on: ubuntu-latest
+    container: texlive/texlive:latest
+    steps:
+      - name: Bootstrap git
+        shell: bash
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends \
+            git openssh-client poppler-utils ca-certificates
+          git config --global --add safe.directory '*'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build both PDFs + previews
+        uses: ./.github/actions/build-cv
+        with:
+          fonts-deploy-key: ${{ secrets.FONTS_DEPLOY_KEY }}
+          target: all
+
+      - name: Commit refreshed previews
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: refresh CV previews [skip ci]'
+          file_pattern: 'images/preview-*.png'
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Update rolling "latest" release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest CV
+          body: 'Alltid nyeste bygg fra `main` (commit ${{ github.sha }}).'
+          make_latest: true
+          fail_on_unmatched_files: true
+          files: |
+            CV_Fredrik_Carsten_Hansteen_En.pdf
+            CV_Fredrik_Carsten_Hansteen_Nb.pdf

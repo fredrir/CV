@@ -1,0 +1,69 @@
+name: Build CV
+description: >-
+  Fetch the private Arial fonts via the read-only deploy key and build both
+  CV PDFs (English + Norwegian) with lualatex. Runs inside a texlive/texlive
+  container.
+
+inputs:
+  fonts-deploy-key:
+    description: Read-only SSH deploy key for the private fonts repo.
+    required: true
+  fonts-repo:
+    description: SSH URL of the private repo holding the Arial TTFs.
+    required: false
+    default: git@github.com:fredrir/cv-fonts.git
+  target:
+    description: build.sh target — all | en | nb.
+    required: false
+    default: all
+  workdir:
+    description: Directory containing the CV sources to build in.
+    required: false
+    default: .
+
+runs:
+  using: composite
+  steps:
+    - name: Ensure poppler + ssh client
+      shell: bash
+      run: |
+        if ! command -v pdftoppm >/dev/null 2>&1 || ! command -v ssh-add >/dev/null 2>&1; then
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends \
+            poppler-utils openssh-client git ca-certificates
+        fi
+
+    - name: Load fonts deploy key
+      uses: webfactory/ssh-agent@v0.9.1
+      with:
+        ssh-private-key: ${{ inputs.fonts-deploy-key }}
+
+    - name: Fetch private Arial fonts
+      shell: bash
+      env:
+        FONTS_REPO: ${{ inputs.fonts-repo }}
+        WORKDIR: ${{ inputs.workdir }}
+      run: |
+        set -euo pipefail
+        tmp="$(mktemp -d)"
+        GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" \
+          git clone --depth 1 "$FONTS_REPO" "$tmp"
+        mkdir -p "$WORKDIR/fonts"
+        found=0
+        shopt -s nullglob
+        for f in "$tmp"/*.TTF "$tmp"/*.ttf "$tmp"/*.otf; do
+          cp "$f" "$WORKDIR/fonts/"
+          found=1
+        done
+        rm -rf "$tmp"
+        if [ "$found" -eq 0 ]; then
+          echo "::error::No fonts found in ${FONTS_REPO}. It must contain ARIAL.TTF, ARIALBD.TTF, ARIALI.TTF and ARIALBI.TTF."
+          exit 1
+        fi
+        echo "Fonts in place:"
+        ls -1 "$WORKDIR/fonts"
+
+    - name: Build PDFs
+      shell: bash
+      working-directory: ${{ inputs.workdir }}
+      run: bash build.sh ${{ inputs.target }}

@@ -1,0 +1,70 @@
+name: PR Build & Preview
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    name: Build & diff
+    runs-on: ubuntu-latest
+    container: texlive/texlive:latest
+    steps:
+      - name: Bootstrap tools
+        shell: bash
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends \
+            git openssh-client poppler-utils imagemagick ca-certificates
+          git config --global --add safe.directory '*'
+
+      # PR head at the repo root, base into ./base for the diff.
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+
+      - name: Checkout base (${{ github.event.pull_request.base.ref }})
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+
+      - name: Build PR head
+        uses: ./.github/actions/build-cv
+        with:
+          fonts-deploy-key: ${{ secrets.FONTS_DEPLOY_KEY }}
+
+      - name: Build base (for diff)
+        uses: ./.github/actions/build-cv
+        continue-on-error: true
+        with:
+          fonts-deploy-key: ${{ secrets.FONTS_DEPLOY_KEY }}
+          workdir: base
+
+      - name: Render visual diff
+        shell: bash
+        run: bash .github/scripts/pdf-diff.sh base . | tee comment.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload PDFs + diff overlays
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pr-${{ github.event.pull_request.number }}
+          path: |
+            CV_Fredrik_Carsten_Hansteen_En.pdf
+            CV_Fredrik_Carsten_Hansteen_Nb.pdf
+            diff/*.png
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Post / update PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: cv-preview
+          path: comment.md
