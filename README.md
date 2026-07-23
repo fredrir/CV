@@ -8,8 +8,8 @@ LaTeX-kilde til CV-en min, tilgjengelig på norsk og engelsk.
 
 ## Forhåndsvisning
 
-| Side 1 | Side 2 |
-|:------:|:------:|
+|             Side 1              |             Side 2              |
+| :-----------------------------: | :-----------------------------: |
 | ![Side 1](images/preview-1.png) | ![Side 2](images/preview-2.png) |
 
 ## Bygge PDF
@@ -24,7 +24,6 @@ bash build.sh en    # bare engelsk
 bash build.sh nb    # bare norsk
 bash build.sh clean # rydder opp
 ```
-
 
 Resultatet legges som `CV_Fredrik_Carsten_Hansteen_En.pdf` / `CV_Fredrik_Carsten_Hansteen_Nb.pdf`.
 
@@ -46,7 +45,7 @@ Eksempel:
   {\enor{Developer}{Utvikler}}
   {\enor{Council of Norwegian Consulting Engineers (RIF)}%
         {Rådgivende Ingeniørers Forening (RIF)}}
-  {\enor{Oslo / Remote, Norway}{Oslo / Remote, Norge}}
+  {\enor{Oslo / Remote}{Oslo / Remote}}
   {Aug 2024 -- \lblpresent}
 ```
 
@@ -57,7 +56,7 @@ Samme fil produserer begge språk
 For en arbeidsgiver med flere roller, kombiner `\cventry` (tom `datoer`-argument) med `\cvsubentry`:
 
 ```latex
-\cventry{Læringsassistent}{NTNU}{Trondheim, Norge}{}
+\cventry{Læringsassistent}{NTNU}{Trondheim}{}
 \cvsubentry{Læringsassistent}{IT2901 - Informatikk prosjektarbeid II}
            {Januar 2025}{Juni 2025}
 \cvsubentry{Læringsassistent}{KJ2095 - Eksperter i Teams}
@@ -75,7 +74,6 @@ fonts/
 ├── ARIALI.TTF
 └── ARIALBI.TTF
 ```
-
 
 ## Avhengigheter
 
